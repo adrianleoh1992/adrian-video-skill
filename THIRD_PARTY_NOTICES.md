@@ -17,6 +17,10 @@ This release contains original workflow instructions, Python helpers, tests, and
 - The audit reported an MIT license with Hanif attribution. No code, skill text, project examples, or assets from that repository were reused in this release, so its license text is not represented as this package's license.
 - These are reported audit references, not a claim that newer, private, or unpublished changes were inspected. A future change that actually incorporates upstream material must preserve the applicable original license and notices.
 
+## Optional narration sources
+
+The narration implementation is original. Its request contracts were checked against official [ElevenLabs API documentation](https://elevenlabs.io/docs/api-reference/text-to-speech/convert-with-timestamps), [models documentation](https://elevenlabs.io/docs/api-reference/models/list), [voices documentation](https://elevenlabs.io/docs/api-reference/voices/search), and [AI33.pro/OpenSpeaker documentation](https://ai33.pro/app/api-document) on 2026-10-02. The official [ElevenLabs skills repository](https://github.com/elevenlabs/skills) was a research reference; no skill text or source code was copied into these adapters. Provider SDKs are not vendored. No AI Black Magic skills, resources, or commercial package content are included. Access to a paid provider remains subject to its own account terms and pricing.
+
 ## Personal and creator content
 
 No personal face or voice reference, Instagram footage, browser state, credential, approval transcript, or session research is included. Example handles, permalinks, prices, dates, and approval records in tests and guides are synthetic and do not establish real-world identity, current pricing, or permission.

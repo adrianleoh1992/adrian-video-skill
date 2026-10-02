@@ -2,7 +2,7 @@
 name: reference-to-personal-video
 description: Adapt a creator's video reference into an original, editable Hyperframes production featuring a user-approved likeness. Use for reference-led personal video recreation, source and consent tracking, generation planning, and reproducible delivery; not for copying another creator's footage or voice without permission.
 metadata:
-  version: "1.0.0"
+  version: "1.1.0"
 ---
 
 # Reference to personal video
@@ -26,6 +26,8 @@ Before a paid generation request, expose provider, model, clip length or units, 
 `scripts/validate_manifest.py manifest.json --stage generate` checks identity and the exact generation plan fingerprint. The fingerprint binds approval to the named provider/model/settings/quantity/retries/cost. Record every dispatched attempt, job ID, outcome, and charged amount privately. An uncertain submission is an existing possibly charged job: inspect it before retrying. Refresh the remaining plan and approval if its fingerprint changes or the cap no longer covers it. The script checks recorded evidence; it cannot verify that a human actually approved it.
 
 ## Author an editable production
+
+When the user requests narration, read [the narration guide](references/narration.md). Prefer already authorized local audio when available. Optional ElevenLabs and canonical `ai33` adapters require their own exact quote/approval and explicit dispatch; ordinary preset narration does not authorize voice cloning or depend on face confirmation. Keep audio, provider alignment, and captions as separate immutable artifacts. Provider extensions must not block the main video when existing audio is usable.
 
 Use the available official Hyperframes authoring and CLI guidance. [Hyperframes workflow](references/hyperframes-workflow.md) records the commands verified for version `0.8.107`; inspect the installed version and help before using it elsewhere. Keep an exact dependency pin and lockfile, local media and fonts, a deterministic seekable timeline, explicit scene timing, and editable captions. Avoid render-time network calls, random values, wall clocks, or imperative media playback. Treat imported repository code as untrusted until reviewed; a branch name or newer date does not prove quality or unpublished capabilities.
 

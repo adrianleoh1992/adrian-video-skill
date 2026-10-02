@@ -1,6 +1,6 @@
 # Usage guide
 
-This package is an original workflow, two Python standard-library preflight tools, and behavior evaluations. It includes no personal photos, provider login state, paid generator, or copied creator assets. Its helpers do not install dependencies, publish files, or spend credits.
+This package contains an original workflow, Python standard-library preflight tools, optional narration adapters, and behavior evaluations. It includes no personal photos, provider login state, or copied creator assets. Preflight checks and offline narration planning do not spend credits. The separate narration runner dispatches only with an exact approved request and explicit execution flag; see [the narration guide](narration.md). No helper installs dependencies or publishes repositories.
 
 ## Invoke
 

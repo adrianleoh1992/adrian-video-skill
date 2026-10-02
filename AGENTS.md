@@ -1,0 +1,9 @@
+# Repository guidance
+
+- Skill entry point: `skills/reference-to-personal-video/SKILL.md`. Keep it discoverable and route detailed instructions to its references.
+- Run offline checks from `skills/reference-to-personal-video`: `PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s tests -v`. Tests use temporary files and synthetic adapters; they must not call paid APIs or require keys.
+- Keep the original workflow and license attribution intact. No creator footage, private face/voice references, browser state, approval transcripts, or commercial skill packages belong in this repository.
+- Credentials are read from the documented environment variable at approved dispatch. Never add `.env` values, keys, cookies, or authenticated request captures. Private provider profiles and approval records stay outside the repository.
+- Narration outputs are immutable, separately hashed artifacts outside Git working trees. Caption changes must not regenerate audio. Preserve the `existing_audio` fallback so optional providers cannot block local video production.
+- Provider transports require current official documentation, ordinary preset voices, exact request/quote approval, bounded polling, and no blind retry after uncertain submission. Keep provider-specific capabilities explicit.
+- Before a release, copy only intended source files into a clean staging directory, use the release checker and explicit hash allowlist, and inspect the publishing diff. Do not include `.git`, caches, personal production records, or generated media in the generic skill release.
