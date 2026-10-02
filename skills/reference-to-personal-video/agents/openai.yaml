@@ -1,0 +1,4 @@
+interface:
+  display_name: "Reference to Personal Video"
+  short_description: "Build an original video with an approved likeness"
+  default_prompt: "Use $reference-to-personal-video to adapt this reference into an original editable Hyperframes video with my approved likeness."

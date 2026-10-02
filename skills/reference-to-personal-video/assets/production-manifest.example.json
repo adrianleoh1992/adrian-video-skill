@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "project_id": "personal-video-example",
+  "toolchain": {"hyperframes_version": "0.8.107"},
+  "references": [],
+  "sample": {
+    "creator": "@example_creator",
+    "requested_count": 10,
+    "claimed_complete": false,
+    "coverage_evidence": "",
+    "limitation": "No reference videos have been observed in this example."
+  },
+  "assets": [],
+  "identity": {
+    "subject_handle": "",
+    "status": "pending",
+    "selected_asset_ids": [],
+    "confirmation_ref": "",
+    "provider_upload_allowed": false,
+    "voice_clone_allowed": false
+  },
+  "generation": {
+    "unit": "credits",
+    "spent": 0,
+    "plan": [],
+    "approval": null
+  }
+}

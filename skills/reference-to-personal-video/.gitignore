@@ -1,0 +1,11 @@
+__pycache__/
+*.py[cod]
+.DS_Store
+.env
+.env.*
+private/
+face-references/
+voice-references/
+account-state/
+node_modules/
+renders/
