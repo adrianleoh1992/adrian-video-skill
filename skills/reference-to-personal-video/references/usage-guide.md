@@ -18,6 +18,7 @@ Keep a private production directory separate from the reusable skill:
 production/
   BRIEF.md
   STORYBOARD.md
+  SHOT-MATRIX.md
   private/
     production-manifest.json
     generation-ledger.json
@@ -31,6 +32,7 @@ production/
     assets/
   evidence/
     reference-audit.md
+    editorial-review.json
     checks.json
     media-probe.json
     delivery-sha256.txt
@@ -49,6 +51,10 @@ For each video actually inspected, record timestamped observations: hook, shot d
 
 Write fresh narration and an adaptation rationale. Reference-inspired timing is not permission to copy a complete script, watermark, face, voice, music, or third-party footage. Verify factual claims independently when they materially affect the viewer's actions.
 
+For reference-led edits, use [the editorial guide](editorial-fit.md) to map required narration phrases to inspected shot actions, exact source ranges, and overlay entry/hold/exit times. Record whether the reference relies on moving action beneath graphics. Carry that relationship into the brief and matrix; source-video playback, overlay motion, and camera motion are distinct observations. Mark missing footage instead of silently changing the adaptation into cards or held frames.
+
+If the user supplies their narration, preserve/import that recording locally and build timing from its actual speech. Use the [integer frame-clock guidance](hyperframes-workflow.md#integer-frame-clock-and-source-coverage) for clip and overlay boundaries while retaining audio sample timing. Before calling the edit complete, inspect source-action coverage across every required interval and separate technical checks from continuous visual review and actual listening. These steps use the existing task authorization and do not require a new approval loop.
+
 ## Run local preflight
 
 Python 3.10+ is sufficient for the package's scripts and tests:
@@ -66,4 +72,4 @@ Before packaging, create a separate, explicitly selected staging directory with 
 
 ## Resume and handoff
 
-On resume, read the latest brief, approvals, generation ledger, exact toolchain pin, and local file hashes. Do not regenerate an already delivered job merely because a prior tool call timed out. Record what finished, what was blocked, and where the bytes are located. The handoff must identify the final MP4 and editable project, how to preview/render, what assets may be redistributed, and any inaccessible evidence. Do not call a placeholder or silent draft a finished narrated video.
+On resume, read the latest brief, shot matrix, evidence coverage flags, approvals, generation ledger, exact toolchain pin, and local file hashes. Do not regenerate an already delivered job merely because a prior tool call timed out. Record what finished, what was blocked, and where the bytes are located. The handoff must identify the MP4 and editable project, how to preview/render, what assets may be redistributed, and any inaccessible evidence. Report technical readiness separately from semantic, readability, and editorial fit, including actual rendered playback and voice-listening coverage. Do not call a placeholder, silent draft, or adaptation with unresolved required footage a faithful finished video. Continue authorized corrections without adding a new approval round for this review.

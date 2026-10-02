@@ -1,12 +1,15 @@
 """Transport contracts tested with synthetic responses; never live API calls."""
 
 import base64
+from contextlib import redirect_stdout
 import copy
+import io
 import json
 from pathlib import Path
 import sys
 from urllib.parse import urlsplit
 import unittest
+from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
 import narration as n
@@ -149,6 +152,29 @@ class FallbackTests(unittest.TestCase):
         self.assertEqual(result["receipt"]["provider"], "existing_audio")
         self.assertTrue(n.import_existing_audio(audio, "Supplied transcript", self.out)["cache_hit"])
         self.assertEqual((Path(result["directory"]) / "audio.wav").read_bytes(), audio.read_bytes())
+
+    def test_supplied_recording_cli_never_loads_provider_and_preserves_bytes(self):
+        import builtins
+        audio = Path(self.temp.name) / "supplied.wav"
+        transcript = Path(self.temp.name) / "spoken.txt"
+        original = wav_bytes()
+        audio.write_bytes(original)
+        transcript.write_text("Words actually supplied in this synthetic recording test.")
+        original_import = builtins.__import__
+        def local_only(name, *args, **kwargs):
+            if name == "narration_providers":
+                raise AssertionError("A supplied-recording import must not load a provider adapter")
+            return original_import(name, *args, **kwargs)
+        stdout = io.StringIO()
+        argv = ["narration.py", "import-audio", str(audio), "--text-file", str(transcript), "--output-dir", str(self.out)]
+        with patch.object(sys, "argv", argv), patch("builtins.__import__", side_effect=local_only), redirect_stdout(stdout):
+            self.assertEqual(n.main(), 0)
+        result = json.loads(stdout.getvalue())
+        self.assertEqual(result["external_calls"], 0)
+        self.assertEqual(result["receipt"]["provider"], "existing_audio")
+        self.assertEqual(audio.read_bytes(), original)
+        self.assertEqual((Path(result["directory"]) / "audio.wav").read_bytes(), original)
+        self.assertFalse((self.out / "attempts").exists())
 
     def test_ai33_quote_unit_is_checked_before_credential_lookup(self):
         from test_narration import NeverReadCredentials

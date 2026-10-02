@@ -13,6 +13,8 @@ The manifest is private production evidence. It can contain source URLs, account
 - `identity`: selected face and recorded user confirmation.
 - `generation`: the remaining exact request plan, budget unit, cumulative spend, and approval.
 
+Private productions can additionally retain `editorial_review` alongside the phrase-level shot matrix, following [the editorial evidence flags](editorial-fit.md). Record actual source/render ranges, reviewed phrase IDs, audition/listening coverage, and limitations separately from planned coverage. These documentation fields are not checked by the current Python validator and do not turn its technical pass into editorial approval.
+
 ## Video reference
 
 ```json

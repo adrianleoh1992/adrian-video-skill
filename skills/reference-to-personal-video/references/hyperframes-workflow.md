@@ -33,6 +33,18 @@ Ship local licensed fonts and media. Record the actual Node, browser, FFmpeg, an
 
 These notes summarize observed authoring contracts; they are not a replacement for the complete installed core skill.
 
+## Integer frame clock and source coverage
+
+Record the output frame rate exactly, including its rational numerator/denominator when applicable. Use integer frame indices as the authored timeline's clock. Store each interval as half-open `[start_frame, end_frame)`; its duration is `end_frame - start_frame`. Adjacent shots that should touch share the same boundary. Derive seconds for timing attributes from `frame_index / fps` with sufficient precision. Do not independently round each scene's seconds and accumulate those rounded durations.
+
+Choose and record how observed speech/word timestamps are quantized. Nearest-frame placement can be appropriate for ordinary editorial cuts; round a required coverage start down and end up when trimming inward would cut a spoken sound or required action. Determine final frame count from the ceiling of required audio coverage at the output rate, plus any intentional ending hold. Audio keeps its sample clock: quantizing the visual timeline is not permission to truncate, stretch, or repeatedly re-encode the recording. Container duration tolerance is measured against the selected frame/sample clocks rather than an invented exact decimal duration.
+
+Track output frames separately from each source's frame rate, timebase, and trim range. For a fixed playback rate, the source time advances by output elapsed seconds multiplied by that rate. Verify that the source's usable range covers the entire output interval, including the last displayed sample and transition overlap. Do not confuse a source frame index with an output frame index or let a browser's automatic last-frame hold conceal a short source. If variable-rate or time-remapped media is used, inspect the actual decoded result instead of assuming the fixed-rate formula applies.
+
+For full-frame moving footage, confirm that the intended crop fills the canvas while retaining the meaningful action. Every cut, overlap, source exhaustion point, or reuse needs an explicit continuation decision. A loop can contain changing pixels while visibly resetting a gesture; a camera transform can move a held frame without advancing the source action. Record such behavior in the phrase/shot matrix and assess it against the brief. Add suitable authorized footage, change the justified edit, or disclose the remaining gap rather than silently padding a required action with a freeze.
+
+These are authoring and inspection rules, not a new automated checker. The package's unit tests do not render a composition or prove a production timeline follows them.
+
 ## Verification loop
 
 With the exact local project dependency installed, run through its scripts or local binary:
@@ -54,7 +66,7 @@ Verify the preview URL responds, inspect the assembled timeline, and preserve an
 ffprobe -v error -show_format -show_streams -of json renders/final.mp4
 ```
 
-Confirm nonempty bytes, duration against root duration, expected dimensions/frame rate, an audio stream when required, and an intelligible full listen. Watch first/last frames and transitions for blank flashes or cut-off narration. Record the render's capture/GPU summary and final SHA-256. File existence, a passing lint, or ffprobe alone does not prove a finished video.
+Confirm nonempty bytes, frame/sample coverage against the authored timeline, expected dimensions/frame rate, and an audio stream when required. A decode/probe result is technical evidence. Separately inspect the actual export continuously at normal speed and listen when playback is available, following [editorial review](editorial-fit.md). Check first/last frames, source boundaries, and transitions for blank flashes, frozen action, or cut-off speech. Record which ranges were actually watched/heard, the render's capture/GPU summary, and final SHA-256. If playback or audition did not occur, leave those evidence flags unverified; file existence, passing lint, or ffprobe cannot substitute for them.
 
 ## Reference-repository boundary
 

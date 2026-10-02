@@ -33,13 +33,13 @@ PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s tests -v
 python3 scripts/validate_manifest.py assets/production-manifest.example.json --stage audit
 ```
 
-See [manifest validation](skills/reference-to-personal-video/references/manifest-contract.md), [release checks](skills/reference-to-personal-video/references/release-contract.md), and [behavior evaluations](skills/reference-to-personal-video/references/evaluation.md). A passing preflight does not prove accurate evidence, copyright ownership, visual identity quality, or absence of every secret.
+See [manifest validation](skills/reference-to-personal-video/references/manifest-contract.md), [release checks](skills/reference-to-personal-video/references/release-contract.md), and [behavior evaluations](skills/reference-to-personal-video/references/evaluation.md). A passing preflight does not prove accurate evidence, copyright ownership, visual identity quality, or absence of every secret. Reference-led production also needs [phrase-level editorial and playback review](skills/reference-to-personal-video/references/editorial-fit.md): shot actions, source ranges, and overlay timing must support the narration and the brief's intended visual relationship.
 
 ## Optional narration
 
 | Capability | Current support |
 | --- | --- |
-| Local narration/audio already produced | Immutable `import-audio` fallback; no provider, key, or upload |
+| User-supplied recording or local narration | Immutable `import-audio` route; preserve actual voice/audio without a provider, key, upload, or cloning |
 | ElevenLabs | Runtime model discovery, premade voices only, MP3 plus character/word alignment |
 | AI33.pro / OpenSpeaker | Preset allowlist, documented v3 multipart TTS, bounded task polling, provider audio and raw SRT/JSON sidecars |
 | Captions | Separate SRT/VTT export from actual normalized word alignment |
@@ -53,12 +53,14 @@ Keep narration requests, approvals, API keys, and outputs in a private productio
 python3 skills/reference-to-personal-video/scripts/narration.py import-audio /absolute/private-production/narration.wav --text-file /absolute/private-production/narration.txt --output-dir /absolute/private-production/voice-artifacts
 ```
 
-## Worked example: Pegang Kendali
+## Technical example
 
-The workflow was used for **Pegang Kendali**, a finished 99-second vertical video at 1080 × 1920 and 30 fps, with nine scenes, 35 caption cues, and four Google Flow shots. The editable source project and MP4 were delivered privately. Personal likeness assets, production files, and delivery identifiers are intentionally omitted from this public repository; the reusable workflow and synthetic tests remain available here.
+The workflow supports an editable vertical-video project with timed footage, captions, graphics, narration, and an exported MP4. This describes a technical assembly example, not a claim that a particular adaptation passed semantic, readability, or editorial review. Personal assets and production evidence stay in the private project; this repository contains the reusable workflow and synthetic tests.
+
+For a supplied soundtrack, the actual speech drives the edit. The authoring guide uses an integer frame clock, explicit source ranges, and phrase-level action/overlay timing. Full-frame moving footage is required where the brief calls for it; source continuity, readability, continuous rendered playback, and actual voice listening are recorded separately from technical checks. The package tests do not validate any private production render.
 
 ## Production requirements
 
 The documented compatibility baseline is Hyperframes `0.8.107`; actual video production needs a separately installed, exactly pinned Hyperframes project plus Node, FFmpeg, local assets, and any authorized generation provider. This repository contains no provider login state, personal photos, creator footage, voices, or generated likeness assets. Public availability of a photo does not by itself grant permission to use it.
 
-Version: `1.1.0`. Released under the [MIT License](LICENSE). See [third-party notices](THIRD_PARTY_NOTICES.md) for reference context and the boundary between consulted material and reused code.
+Package version: `1.1.1`. Released under the [MIT License](LICENSE). See [third-party notices](THIRD_PARTY_NOTICES.md) for reference context and the boundary between consulted material and reused code.

@@ -1,6 +1,14 @@
-# Optional narration, version 1.1.0
+# Narration and supplied recordings
 
 `scripts/narration.py` separates offline planning, optional paid narration, existing local audio, and caption export. Python 3.10+ and its standard library are sufficient. Neither importing the module nor constructing a provider adapter reads credentials or calls a provider. Development verification used synthetic responses only; authenticated paid behavior has not been tested.
+
+## Use the supplied recording when requested
+
+If a user provides a recording to use as their actual voice, use `import-audio` as the local `existing_audio` route. This copies and hashes the recording without synthesis, external upload, or cloning. Keep its original bytes immutable. Local extraction, trimming, cleanup, or normalization belongs in a separately recorded derivative with source ranges and edit settings; the import command itself does not perform those edits.
+
+Time shots and captions to the supplied speech, including its real pauses. If a written script and the recording differ, record the mismatch and align captions to the actual words. Do not substitute a preset voice or synthesize missing phrases merely because a provider adapter is available. A complete soundtrack request with only a partial recording has an unresolved content gap; continue independent authorized editing and report the specific missing part without inventing consent or speech.
+
+Record actual listening coverage separately from file integrity or decode checks. A successful local import establishes preserved bytes, not an audition or a verified final mix. The existing tests use synthetic temporary audio and do not establish the quality of any private recording or new rendered video.
 
 ## Provider capabilities and verified sources
 
